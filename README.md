@@ -6,7 +6,7 @@ Defines C++ macros to write GPU code that compiles both on CUDA and ROCm.
 
 You must add the files in the `src` directory to your project, and include the `gpu_macros.hpp` (and any other library-specific file)  wherever you want to make calls to the HIP or CUDA runtime.
 
-The `__GPU__` macro is defined when the source code is being compiled with NVCC or HIPCC. This provides a way for you to guard GPU-enabled code, and allow CPU only builds when compiling with a host compiler (e.g. GCC).
+The `__GPU__` macro is defined when the source code is being compiled with NVCC or HIPCC. This provides a way for developers to guard GPU-enabled code, and allow CPU only builds when compiling with a host compiler (e.g. GCC).
 
 Here is an example:
 
