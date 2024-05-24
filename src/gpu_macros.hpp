@@ -51,6 +51,11 @@ void __gpu_check_error(gpuError_t x, const char *file, int line);
 #define gpuEventCreate(...) GPU_CHECK_ERROR(cudaEventCreate(__VA_ARGS__))
 #define gpuGetDeviceCount(...) GPU_CHECK_ERROR(cudaGetDeviceCount(__VA_ARGS__))
 #define gpuGetLastError cudaGetLastError
+#define gpuGetDevice(...) GPU_CHECK_ERROR(cudaGetDevice(__VA_ARGS__))
+#define gpuSetDevice(...) GPU_CHECK_ERROR(cudaSetDevice(__VA_ARGS__))
+#define gpuDeviceGetAttribute(...) GPU_CHECK_ERROR(cudaDeviceGetAttribute(__VA_ARGS__))
+#define gpuDeviceAttributeWarpSize cudaDevAttrWarpSize
+#define __gpu_shfl_down(...) __shfl_down_sync(0xffffffff, __VA_ARGS__)
 
 #else
 
@@ -70,8 +75,13 @@ void __gpu_check_error(gpuError_t x, const char *file, int line);
 #define gpuStreamCreate(...) GPU_CHECK_ERROR(hipStreamCreate(__VA_ARGS__))
 #define gpuStreamDestroy(...) GPU_CHECK_ERROR(hipStreamDestroy(__VA_ARGS__))
 #define gpuEventCreate(...) GPU_CHECK_ERROR(hipEventCreate(__VA_ARGS__))
-#define gpuGetDeviceCount(...) GPU_CHECK_ERROR(hipGetDeviceCount(__VA_ARGS__))
+#define gpuGetDeviceCount(...) hipGetDeviceCount(__VA_ARGS__)
 #define gpuGetLastError hipGetLastError
+#define gpuGetDevice(...) GPU_CHECK_ERROR(hipGetDevice(__VA_ARGS__))
+#define gpuSetDevice(...) GPU_CHECK_ERROR(hipSetDevice(__VA_ARGS__))
+#define gpuDeviceGetAttribute(...) GPU_CHECK_ERROR(hipDeviceGetAttribute(__VA_ARGS__))
+#define gpuDeviceAttributeWarpSize hipDeviceAttributeWarpSize
+#define __gpu_shfl_down(...) __shfl_down(__VA_ARGS__)
 
 #endif
 #define gpuCheckLastError(...) GPU_CHECK_ERROR(gpuGetLastError())
